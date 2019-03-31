@@ -1,2 +1,2 @@
 # sfg-pet-clinic
-SFT Pet Clinic
+Spring Framework Guru Pet Clinic
