@@ -1,5 +1,9 @@
 9HELP.md
 /target/
+pet-clinic-data/target/
+pet-clinic-web/target/
+HELP.md
+
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
