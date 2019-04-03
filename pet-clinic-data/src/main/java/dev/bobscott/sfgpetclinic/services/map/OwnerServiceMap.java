@@ -1,19 +1,26 @@
 package dev.bobscott.sfgpetclinic.services.map;
 
 import dev.bobscott.sfgpetclinic.model.Owner;
-import dev.bobscott.sfgpetclinic.services.CrudService;
+import dev.bobscott.sfgpetclinic.services.OwnerService;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements CrudService<Owner, Long> {
+@Component
+public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
     @Override
     public Owner findById(Long id) {
         return super.findById(id);
     }
 
     @Override
-    public Owner save(Long id, Owner object) {
-        return super.save(id, object);
+    public Owner findByLastName(String lastName) {
+        return null;
+    }
+
+    @Override
+    public Owner save(Owner object) {
+        return super.save(object.getId(), object);
     }
 
     @Override
@@ -30,4 +37,6 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
     public Set<Owner> findAll() {
         return super.findAll();
     }
+
+
 }
