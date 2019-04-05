@@ -39,6 +39,10 @@ public class DataLoader implements CommandLineRunner {
         arthritisSpeciality.setDescription("Arthritis");
         specialtyService.save(arthritisSpeciality);
 
+        Speciality dentistrySpeciality = new Speciality();
+        dentistrySpeciality.setDescription("Dentistry");
+        specialtyService.save(dentistrySpeciality);
+
         PetType dog = new PetType();
         dog.setName("Dog");
         dog = petTypeService.save(dog);
@@ -85,6 +89,7 @@ public class DataLoader implements CommandLineRunner {
         vet1.setFirstName("Sam");
         vet1.setLastName("Axe");
         vet1.getSpecialities().add(cardiacSpeciality);
+        vet1.getSpecialities().add(dentistrySpeciality);
         vetService.save(vet1);
 
         Vet vet2 = new Vet();
