@@ -1,6 +1,8 @@
 package dev.bobscott.sfgpetclinic.services.map;
 
+import dev.bobscott.sfgpetclinic.model.Speciality;
 import dev.bobscott.sfgpetclinic.model.Vet;
+import dev.bobscott.sfgpetclinic.services.SpecialtyService;
 import dev.bobscott.sfgpetclinic.services.VetService;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,13 @@ import java.util.Set;
 
 @Service
 public class VetMapService extends AbstractMapService<Vet, Long> implements VetService {
+
+    private SpecialtyService specialtyService;
+
+    public VetMapService(SpecialtyService specialtyService) {
+        this.specialtyService = specialtyService;
+    }
+
     @Override
     public Vet findById(Long id) {
         return super.findById(id);
@@ -16,7 +25,17 @@ public class VetMapService extends AbstractMapService<Vet, Long> implements VetS
 
     @Override
     public Vet save(Vet object) {
+        if(object != null) {
+            saveSpecialities(object.getSpecialities());
+        }
         return super.save(object);
+    }
+
+    private void saveSpecialities(Set<Speciality> specialities) {
+        if(specialities == null) return;
+        specialities.stream()
+            .filter(s->s.getId() == null)
+            .forEach(s->specialtyService.save(s));
     }
 
     @Override
