@@ -1,6 +1,7 @@
 package dev.bobscott.sfgpetclinic.services.map;
 
 import dev.bobscott.sfgpetclinic.model.Pet;
+import dev.bobscott.sfgpetclinic.model.PetType;
 import dev.bobscott.sfgpetclinic.services.PetService;
 import dev.bobscott.sfgpetclinic.services.PetTypeService;
 import org.springframework.stereotype.Service;
@@ -23,10 +24,16 @@ public class PetMapService extends AbstractMapService<Pet, Long> implements PetS
 
     @Override
     public Pet save(Pet object) {
-        if(object != null && object.getId() == null) {
+        if(object != null) {
             petTypeService.save(object.getPetType());
         }
         return super.save(object);
+    }
+
+    private void savePetTypeWithNullId(PetType petType) {
+        if(petType.getId() == null) {
+            petTypeService.save(petType);
+        }
     }
 
     @Override
