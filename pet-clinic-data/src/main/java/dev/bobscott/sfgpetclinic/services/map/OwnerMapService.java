@@ -30,14 +30,11 @@ public class OwnerMapService extends AbstractMapService<Owner, Long> implements 
 
     @Override
     public Owner save(Owner object) {
-        if(object != null) {
-            savePets(object.getPets());
-        }
+        savePetsWithNullId(object.getPets());
         return super.save(object);
     }
 
-    private void savePets(Set<Pet> pets) {
-        if(pets == null) return;
+    private void savePetsWithNullId(Set<Pet> pets) {
         pets.stream()
             .filter(p -> p.getId() == null)
             .forEach(p-> petService.save(p));
