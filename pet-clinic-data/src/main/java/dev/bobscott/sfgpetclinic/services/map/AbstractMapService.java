@@ -2,7 +2,10 @@ package dev.bobscott.sfgpetclinic.services.map;
 
 import dev.bobscott.sfgpetclinic.model.BaseEntity;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class AbstractMapService<T extends BaseEntity, ID extends Long> {
 
@@ -17,12 +20,13 @@ public class AbstractMapService<T extends BaseEntity, ID extends Long> {
     }
 
     T save(T object) {
-        if(object != null) {
-            if (object.getId() == null) {
-                object.setId(getNextId());
-            }
-            map.put(object.getId(), object);
+        if(object == null) {
+            throw new RuntimeException("Trying to save a null object");
         }
+        if (object.getId() == null) {
+            object.setId(getNextId());
+        }
+        map.put(object.getId(), object);
         return object;
     }
 
