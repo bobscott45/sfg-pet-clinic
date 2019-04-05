@@ -2,9 +2,11 @@ package dev.bobscott.sfgpetclinic.services.map;
 
 import dev.bobscott.sfgpetclinic.model.Speciality;
 import dev.bobscott.sfgpetclinic.services.SpecialtyService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
 public class SpecialityMapService extends AbstractMapService<Speciality, Long> implements SpecialtyService {
     @Override
     public Speciality findById(Long id) {
