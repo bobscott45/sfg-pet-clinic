@@ -3,9 +3,13 @@ package dev.bobscott.sfgpetclinic.services.jpa;
 import dev.bobscott.sfgpetclinic.model.Vet;
 import dev.bobscott.sfgpetclinic.repositories.VetRepository;
 import dev.bobscott.sfgpetclinic.services.VetService;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
+@Profile("jpa")
 public class VetJpaService  implements VetService {
 
     private final VetRepository vetRepository;
