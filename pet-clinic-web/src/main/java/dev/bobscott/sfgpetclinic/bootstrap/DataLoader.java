@@ -99,11 +99,21 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("Loaded Vets....");
 
-        visitService.createPetVisit(fionasPet, LocalDate.now(), "Fist visit to Fiona's cat");
-        visitService.createPetVisit(mikesPet, LocalDate.now(), "First visit to Mikes's dog");
-        visitService.createPetVisit(fionasPet, LocalDate.now(), "Second visit to Fiona's cat");
+        createPetVisit(fionasPet, LocalDate.now(), "Fist visit to Fiona's cat");
+        createPetVisit(mikesPet, LocalDate.now(), "First visit to Mikes's dog");
+        createPetVisit(fionasPet, LocalDate.now(), "Second visit to Fiona's cat");
 
         System.out.println("Loaded Visits....");
 
+    }
+
+    public void createPetVisit(Pet pet, LocalDate date, String description) {
+        Visit visit = new Visit();
+        visit.setDate(date);
+        visit.setDescription(description);
+        visit.setPet(pet);
+        visitService.save(visit);
+        pet.getVisits().add(visit);
+        petService.save(pet);
     }
 }
