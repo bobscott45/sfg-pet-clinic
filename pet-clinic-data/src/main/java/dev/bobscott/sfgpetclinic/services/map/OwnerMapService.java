@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-@Profile({"default, map"})
+@Profile({"default", "map"})
 public class OwnerMapService extends AbstractMapService<Owner, Long> implements OwnerService {
 
 
@@ -39,7 +39,7 @@ public class OwnerMapService extends AbstractMapService<Owner, Long> implements 
     private void savePetsWithNullId(Set<Pet> pets) {
         pets.stream()
             .filter(p -> p.getId() == null)
-            .forEach(p-> petService.save(p));
+            .forEach(petService::save);
     }
 
     @Override
