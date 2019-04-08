@@ -7,6 +7,7 @@ import dev.bobscott.sfgpetclinic.services.VisitService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Service
@@ -31,12 +32,6 @@ public class VisitMapService extends AbstractMapService<Visit, Long> implements 
         return super.save(object);
     }
 
-    private void savePetWithNullId(Pet pet) {
-        if(pet.getId() == null) {
-            petService.save(pet);
-        }
-    }
-
     @Override
     public void delete(Visit object) {
         super.delete(object);
@@ -50,5 +45,21 @@ public class VisitMapService extends AbstractMapService<Visit, Long> implements 
     @Override
     public Set<Visit> findAll() {
         return super.findAll();
+    }
+
+    @Override
+    public void createPetVisit(Pet pet, LocalDate date, String description) {
+        Visit visit = new Visit();
+        visit.setDate(date);
+        visit.setDescription(description);
+        visit.setPet(pet);
+        save(visit);
+        pet.getVisits().add(visit);
+    }
+
+    private void savePetWithNullId(Pet pet) {
+        if(pet.getId() == null) {
+            petService.save(pet);
+        }
     }
 }
