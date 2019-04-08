@@ -4,11 +4,13 @@ import dev.bobscott.sfgpetclinic.model.Pet;
 import dev.bobscott.sfgpetclinic.model.PetType;
 import dev.bobscott.sfgpetclinic.services.PetService;
 import dev.bobscott.sfgpetclinic.services.PetTypeService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"default, map"})
 public class PetMapService extends AbstractMapService<Pet, Long> implements PetService {
 
     private PetTypeService petTypeService;
