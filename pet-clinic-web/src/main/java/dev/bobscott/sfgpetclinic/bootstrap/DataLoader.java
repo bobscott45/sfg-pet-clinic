@@ -1,10 +1,7 @@
 package dev.bobscott.sfgpetclinic.bootstrap;
 
 import dev.bobscott.sfgpetclinic.model.*;
-import dev.bobscott.sfgpetclinic.services.OwnerService;
-import dev.bobscott.sfgpetclinic.services.PetTypeService;
-import dev.bobscott.sfgpetclinic.services.SpecialtyService;
-import dev.bobscott.sfgpetclinic.services.VetService;
+import dev.bobscott.sfgpetclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -17,15 +14,16 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialtyService specialtyService;
+    private final PetService petService;
+    private final VisitService visitService;
 
-    public DataLoader(OwnerService ownerService,
-                      VetService vetService,
-                      PetTypeService petTypeService,
-                      SpecialtyService specialtyService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialtyService specialtyService, PetService petService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialtyService = specialtyService;
+        this.petService = petService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -83,6 +81,7 @@ public class DataLoader implements CommandLineRunner {
         fiona.getPets().add(fionasPet);
         ownerService.save(fiona);
 
+
         System.out.println("Loaded Owners....");
 
         Vet vet1 = new Vet();
@@ -99,6 +98,12 @@ public class DataLoader implements CommandLineRunner {
         vetService.save(vet2);
 
         System.out.println("Loaded Vets....");
+
+        visitService.createPetVisit(fionasPet, LocalDate.now(), "Fist visit to Fiona's cat");
+        visitService.createPetVisit(mikesPet, LocalDate.now(), "First visit to Mikes's dog");
+        visitService.createPetVisit(fionasPet, LocalDate.now(), "Second visit to Fiona's cat");
+
+        System.out.println("Loaded Visits....");
 
     }
 }
